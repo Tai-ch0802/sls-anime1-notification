@@ -1,0 +1,17 @@
+{
+  "name": "push-animation-serverless",
+  "version": "1.0.0",
+  "description": "project for anime1",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "crawler": "^1.1.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "should": "^13.2.1"
+  }
+}

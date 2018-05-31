@@ -1,16 +1,22 @@
-# Welcome to serverless. Read the docs
-# https://serverless.com/framework/docs/
-
-# Serverless.yml is the configuration the CLI
-# uses to deploy your code to your provider of choice
-
-# The `service` block is the name of the service
-service: serverless-hello-world
-
+service: serverless-crawler-animation
 # The `provider` block defines where your service will be deployed
 provider:
   name: aws
   runtime: nodejs6.10
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:custom.defaultStage}
+    SLACK_WEBHOOK_URL: ${file(./config/envVars.js):getEnvVars.SLACK_WEBHOOK_URL}
+    SLASH_TOKEN_SECRETARY: ${file(./config/envVars.js):getEnvVars.SLASH_TOKEN_SECRETARY}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
   stage: ${opt:stage, self:custom.defaultStage}
   region: ap-northeast-1
 custom:
@@ -26,3 +32,28 @@ functions:
           path: hello-world
           method: get
           cors: true
+  crawler:
+    handler: handler.publishNotificationFromAnime1
+    events:
+      - schedule:
+        rate: rate(5 minutes)
+        enabled: true
+
+resources:
+  Resources:
+    TodosDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}

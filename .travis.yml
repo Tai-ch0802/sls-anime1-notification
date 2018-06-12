@@ -1,0 +1,18 @@
+sudo: required
+language: node_js
+node_js:
+  - "6.1"
+cache:
+  yarn: true
+  directories:
+    - node_modules
+install:
+  - npm install -g serverless
+  - yarn install
+script:
+  - yarn test
+deploy:
+  - provider: script
+    script: sls deploy
+    on:
+      branch: master

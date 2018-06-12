@@ -4,7 +4,7 @@
   "description": "project for anime1",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/.bin/mocha",
+    "test": "node node_modules/.bin/mocha --recursive",
     "standard": "node node_modules/.bin/standard --fix"
   },
   "license": "MIT",

@@ -6,5 +6,6 @@ dotenv.config()
 module.exports.getEnvVars = () => ({
   SLACK_WEBHOOK_URL: process.env.SLACK_WEBHOOK_URL,
   SLASH_TOKEN_SECRETARY: process.env.SLASH_TOKEN_SECRETARY,
-  DYNAMODB_TABLE: process.env.DYNAMODB_TABLE
+  DYNAMODB_ANIMATION_TABLE: process.env.DYNAMODB_ANIMATION_TABLE,
+  DYNAMODB_COMIC_TABLE: process.env.DYNAMODB_COMIC_TABLE,
 })

@@ -4,7 +4,8 @@ provider:
   name: aws
   runtime: nodejs6.10
   environment:
-    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:custom.defaultStage}
+    DYNAMODB_ANIMATION_TABLE: ${file(./config/envVars.js):getEnvVars.DYNAMODB_ANIMATION_TABLE}
+    DYNAMODB_COMIC_TABLE: ${file(./config/envVars.js):getEnvVars.DYNAMODB_COMIC_TABLE}
     SLACK_WEBHOOK_URL: ${file(./config/envVars.js):getEnvVars.SLACK_WEBHOOK_URL}
     SLASH_TOKEN_SECRETARY: ${file(./config/envVars.js):getEnvVars.SLASH_TOKEN_SECRETARY}
   iamRoleStatements:

@@ -7,7 +7,7 @@ module.exports.helloWorld = (event, context, callback) => {
       'Access-Control-Allow-Origin': '*' // Required for CORS support to work
     },
     body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
+      message: 'Go Serverless v1.0! Your function executed successfully!'
     })
   }
 
@@ -15,16 +15,16 @@ module.exports.helloWorld = (event, context, callback) => {
 }
 
 module.exports.publishNotificationFromAnime1 = (event, context, callback) => {
-  const crawlerService = require('./lib/services/crawlerService');
+  const crawlerService = require('./lib/services/crawlerService')
 
-  crawlerService.getListFromAnime1();
+  crawlerService.getListFromAnime1()
   const response = {
     statusCode: 200,
     headers: {
       'Access-Control-Allow-Origin': '*' // Required for CORS support to work
     },
     body: JSON.stringify({
-      message: 'Publish notification from Anime1 successfully!',
+      message: 'Publish notification from Anime1 successfully!'
     })
   }
 

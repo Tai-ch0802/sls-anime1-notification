@@ -1,10 +1,9 @@
-const should = require('should')
-const manhuaguiCronjobList = require('../../lib/dynamodb/manhuaguiCronjobList')
+const comic = require('../../lib/dynamodb/comic');
 const dateFormat = require('dateformat');
 
-describe('#manhuaguiCronjobList-CRUD', () => {
+describe('#comic CRUD', () => {
   it('should be ok when create', done => {
-    manhuaguiCronjobList.create(
+    comic.create(
       '1128',
       'https://tw.manhuagui.com/comic/1128/',
       'https://cf.hamreus.com/cpic/h/1128.jpg',
@@ -13,12 +12,16 @@ describe('#manhuaguiCronjobList-CRUD', () => {
     done()
   })
   it('should be ok when get', done => {
-    manhuaguiCronjobList.get('1128')
+    comic.get('1128')
     done()
   })
   it('should be ok when update', done => {
     var date = dateFormat(new Date(), 'yyyy-mm-dd')
-    manhuaguiCronjobList.update('1128', date)
+    comic.update('1128', date)
+    done()
+  })
+  it('should be ok when batchGet', done => {
+    comic.batchGet(['1128']);
     done()
   })
 })
